@@ -29,6 +29,28 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateUser=catchAsync(async(req,res,next)=>{
-  const user=await User.findByIdAndUpdate(req.params.id)
-})
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!user) {
+    return next(new AppError(`No user found with ID ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: user,
+  });
+});
+
+
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

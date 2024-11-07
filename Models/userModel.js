@@ -3,15 +3,15 @@ const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
-    userName: {
+    name: {
       type: String,
       trim: true,
       required: [true, "User Must Have a Name!"],
       minlength: 3,
       maxlength: 32,
-      unique: true,
+      unique: false,
     },
-    Email: {
+    email: {
       type: String,
       required: [true, "User Must Have an E-Mail!"],
       validate: {
