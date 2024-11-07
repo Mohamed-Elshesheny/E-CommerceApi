@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const catogeryRoute = require("./Routes/categoryRoute");
+const userRoute = require("./Routes/userRoute");
 const AppError = require("./utils/AppError");
 const globalError = require("./Middleware/errorMiddleware");
 
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Mounted Routes
 app.use("/api/v1/categoreis", catogeryRoute);
+app.use("/api/v1/users", userRoute);
 
 // Frist middleware then it send it to app error then global error handler
 app.all("*", (req, res, next) => {
@@ -41,7 +43,7 @@ app.use(globalError);
 // Define PORT from environment variables
 const PORT = process.env.PORT || 8001;
 
-const server = app.listen(8004, () => {
+const server = app.listen(8000, () => {
   console.log(`Hello From The Server side on port: ${PORT}`);
 });
 
