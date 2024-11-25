@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const catogeryRoute = require("./Routes/categoryRoute");
 const userRoute = require("./Routes/userRoute");
+const subCategoryRoute = require("./Routes/subCategoryRoute");
+const brandRoute = require("./Routes/brandRoute");
 const AppError = require("./utils/AppError");
 const globalError = require("./Middleware/errorMiddleware");
 
@@ -30,6 +32,8 @@ if (process.env.NODE_ENV === "development") {
 // Mounted Routes
 app.use("/api/v1/categoreis", catogeryRoute);
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/subcategory", subCategoryRoute);
+app.use("/api/v1/brands", brandRoute);
 
 // Frist middleware then it send it to app error then global error handler
 app.all("*", (req, res, next) => {

@@ -9,13 +9,14 @@ exports.getCategories = catchAsync(async (req, res) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 5;
   const skip = (page - 1) * limit;
-  const categoreis = await categoryModel.find().skip(skip).limit(limit);
+
+  const categereis = await categoryModel.find().skip(skip).limit(limit);
 
   res.status(200).json({
     status: "success",
-    results: categoreis.length,
+    results: categereis.length,
     page,
-    data: categoreis,
+    data: categereis,
   });
 });
 
@@ -56,7 +57,7 @@ exports.updateCategory = catchAsync(async (req, res, next) => {
 });
 
 // Delete Specific Category
-exports.deletCategory = catchAsync(async (req, res, next) => {
+exports.deleteCategory = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const category = await categoryModel.findByIdAndDelete(id);
