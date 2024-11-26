@@ -6,6 +6,7 @@ const catogeryRoute = require("./Routes/categoryRoute");
 const userRoute = require("./Routes/userRoute");
 const subCategoryRoute = require("./Routes/subCategoryRoute");
 const brandRoute = require("./Routes/brandRoute");
+const productRoute = require("./Routes/productRoute");
 const AppError = require("./utils/AppError");
 const globalError = require("./Middleware/errorMiddleware");
 
@@ -34,6 +35,7 @@ app.use("/api/v1/categoreis", catogeryRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/subcategory", subCategoryRoute);
 app.use("/api/v1/brands", brandRoute);
+app.use("/api/v1/products", productRoute);
 
 // Frist middleware then it send it to app error then global error handler
 app.all("*", (req, res, next) => {
