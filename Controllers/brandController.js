@@ -67,7 +67,7 @@ exports.deleteBrand = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    data: brand,
+    message: `Brand with ID: ${id} has been successfully deleted.`
   });
 });
 
