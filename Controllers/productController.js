@@ -75,7 +75,7 @@ exports.deleteProduct = catchAsync(async (req, res, next) => {
 
 // Create Product
 exports.createProduct = catchAsync(async (req, res) => {
-  req.body.slug = slugify(title);
+  // req.body.slug = slugify(title);
   const Product = await productModel.create(req.body);
 
   res.status(201).json({

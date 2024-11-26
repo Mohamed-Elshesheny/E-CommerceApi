@@ -5,7 +5,6 @@ const productSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
       minlength: [3, "Too short product title name"],
       maxlength: [100, "Too long product title name"],
     },
@@ -32,7 +31,7 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: [true, "product price is required"],
-      max: [20, "Too Long product price"],
+      max: [10000, "Too Long product price"],
       trim: true,
     },
     priceAfterDiscount: {

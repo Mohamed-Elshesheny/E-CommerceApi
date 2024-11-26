@@ -1,6 +1,7 @@
 const express = require("express");
 const productController = require("../Controllers/productController");
-const Validator = require("../Middleware/vaildatorMiddleware");
+const validateProduct = require("../Validators/productValidator");
+const { validateId } = require("../Middleware/vaildatorMiddleware");
 
 const router = express.Router();
 
@@ -11,27 +12,12 @@ const router = express.Router();
 router
   .route("/")
   .get(productController.getProducts)
-  .post(
-    Validator.dynamicValidation("name", [
-      { type: "notEmpty" },
-      { type: "isLength", options: { min: 3, max: 32 } },
-    ]),
-    productController.createProduct
-  );
+  .post(productController.createProduct);
 
 router
   .route("/:id")
-  .get(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    productController.getProductById
-  )
-  .put(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    productController.updateProduct
-  )
-  .delete(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    productController.deleteProduct
-  );
+  .get(validateId, productController.getProductById)
+  .put(validateId, productController.updateProduct)
+  .delete(validateId, productController.deleteProduct);
 
 module.exports = router;

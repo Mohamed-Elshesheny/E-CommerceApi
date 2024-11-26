@@ -1,6 +1,6 @@
 const express = require("express");
 const subCategoryController = require("./../Controllers/subCategoryController");
-const Vaildator = require("../Middleware/vaildatorMiddleware");
+const { validateId } = require("../Middleware/vaildatorMiddleware");
 
 const router = express.Router({ mergeParams: true });
 
@@ -11,8 +11,8 @@ router
 
 router
   .route("/:id")
-  .get(subCategoryController.getsubCategoryBYid)
-  .patch(subCategoryController.updateSubCategory)
-  .delete(subCategoryController.deleteSubCategory);
+  .get(validateId, subCategoryController.getsubCategoryBYid)
+  .patch(validateId, subCategoryController.updateSubCategory)
+  .delete(validateId, subCategoryController.deleteSubCategory);
 
 module.exports = router;

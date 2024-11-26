@@ -22,7 +22,7 @@
 const express = require("express");
 const categoryController = require("../Controllers/categoryController");
 const subCategoriesRoute = require("../Routes/subCategoryRoute");
-const Validator = require("../Middleware/vaildatorMiddleware");
+const { validateId } = require("../Middleware/vaildatorMiddleware");
 
 const router = express.Router();
 
@@ -33,27 +33,12 @@ router.use("/:categoryID/subcategories", subCategoriesRoute);
 router
   .route("/")
   .get(categoryController.getCategories)
-  .post(
-    Validator.dynamicValidation("name", [
-      { type: "notEmpty" },
-      { type: "isLength", options: { min: 3, max: 32 } },
-    ]),
-    categoryController.createCategory
-  );
+  .post(categoryController.createCategory);
 
 router
   .route("/:id")
-  .get(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    categoryController.getCategoryById
-  )
-  .put(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    categoryController.updateCategory
-  )
-  .delete(
-    Validator.dynamicValidation("id", [{ type: "isMongoId" }]),
-    categoryController.deleteCategory
-  );
+  .get(validateId, categoryController.getCategoryById)
+  .put(validateId, categoryController.updateCategory)
+  .delete(validateId, categoryController.deleteCategory);
 
 module.exports = router;
